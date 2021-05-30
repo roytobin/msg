@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Help for Mobile Spirograph</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    margin: 3%;
+    word-spacing: 0.1em;
+}
+.honeydew { background: honeydew }
+.azure { background: azure }
+.ghostwhite { background: ghostwhite }
+.beige { background: beige }
+.paleblue {background:  hsl(239, 66%, 95%) }  /* non-standard nickname paleblue */
+.seashell { background: seashell }
+.lavenderblush { background: lavenderblush }
+.oldlace { background: oldlace }
+.linen { background: linen }
+.mistyrose { background: mistyrose }
+.aliceblue { background: aliceblue }
+.whitesmoke { background: whitesmoke }
+#go { color: #003262;   background: #fdb515 }
+#be { color: #fdb515;   background: #003262 }
+</style>
+</head>
+<body>
+
+<div class="lavenderblush">
+<h3> Repeat Count & Teeth Skip </h3>
+
+<p>
+These two parameters go together.  Increasing Repeat Count
+creates more curves.  Repeat Count=0 means only one curve.  Repeat Count=1
+means one additional curve (two curves total).  Increasing Teeth Skip
+creates more space or gap between each curve.  Teeth Skip=0 means all
+curves are atop each other and so only the last one shows.
+</p>
+</div>
+
+<div class="mistyrose">
+<h3> Penhole Offset </h3>
+
+The location of the penhole where the artist inserts the drawing pen
+on the moving gear.  The value represents the offset expressed as a
+<b>percentage</b> from the center toward the edge.  A value of 0 is the
+center of the gear, and the resulting curve is a circle.  A value of
+100 is the edge of the gear, and the resulting curve is a hypocycloid.
+Negatives are allowed.  Try -63  63 with two complementary colors.
+</div>
+
+<div class="beige">
+<h3> Pen Thickness </h3>
+
+The thickness (or darkness or boldness) of the curve to be drawn.  Decimal
+point is allowed.  Value 0.2 is a very fine line, 1.0 average, 3.0 bold.
+</div>
+
+<h3> List Notation </h3>
+
+Many parameters can accept a list of multiple numbers.  A list is a
+space-separated list of numbers.  Most numbers are in terms of teeth.
+But remember, Penhole Offset is an offset <b>percentage</b>; this is
+the only parameter that is expressed as a percent.
+
+<h3> Sequence Notation </h3>
+
+A sequence notation is available to concisely express a list of numbers.
+For example, the notation 63..49x33 is expanded to a list of 33 decimal
+numbers evenly spaced from 63.0 to 49.0.  For example, 0..5x6 expands to
+six numbers 0 1 2 3 4 5.  To create a mandala drawing, use Penhole Offset
+63..23x17 for example.  Nice pinwheel looking curves can be drawn when the
+repeat factor of Penhole Offset equals the repeat factor of Start Tooth.
+
+<div class="paleblue">
+<h3> Color (manual) </h3>
+
+<p>
+If you are using Firefox on Android, you will need to install a better
+color picker because the native one only presents a few fixed colors.
+To enter colors manually, use "web hex color" notation.
+Check your alma mater site to see the official hexadecimal values of
+your school colors.  For example, #003262 #fdb515
+<span id="go"> Go </span>
+<span id="be"> Bears! </span>
+</p>
+
+<h3> Color Rainbow </h3>
+
+Search "hsl web color" for an overview.  To express a rainbow of many
+colors use sequence notation.  For example, the notation hsl( 0..359,
+88%, 77% ) x17 expands to a list of 17 different colors sweeping across
+the full spectrum.  For convenience, you may enter just the numbers and
+dots of hsl sequence notation.  For example, 0..359 88 77 x21 sweeps hue
+(color) across the full spectrum in twenty one increments.  Even the
+little 'x' is optional.  The software will automatically fill in the
+rest for you.
+
+<h3> Color Fade </h3>
+
+Same as rainbow, except the lightness parameter of the hsl notation
+varies.  For example, hsl( 41, 88%, 9..81% ) x21 represents twenty one
+shades of orange (hue=41) from deep orange to almost white.  Again, all
+characters except the numbers and dots are optional, so don't fret
+if you accidentally erase a character.  The software will automatically
+fill in the rest for you.
+</div>
+
+<h3> Interesting </h3>
+
+<p>
+The gear may have <b>more</b> teeth than the ring.  In the physical world,
+this situation is impossible.  But the math works out just fine.  Try Ring
+Teeth=105 and Gear Teeth=109 for example.  Watch what happens when the
+number of gear teeth equals, then exceeds, the number of ring teeth.
+Please use Autoscale if the image gets zoomed too much or too little.
+</p>
+
+<p>
+The Penhole Offset may be <b>greater</b> than 100%, meaning outside the
+edge of the moving gear.  Impossible in the physical world, but the math
+still works.  Try it, adjusting Autoscale to taste.
+</p>
+
+<p>
+When the Gear Teeth and Ring Teeth are small numbers, the drawing becomes
+very angular and jagged.  Try ring/gear of 11/7 or 11/13.  At larger
+teeth values, all the little line segments are so close together they
+appear to form a smooth curve.  This illusion is revealed using small
+Ring and Gear Teeth values.
+</p>
+
+<p>
+Try very fine Pen Thickness (eg 0.3) in conjunction with sequences
+with many, many numbers.  One can get produce curious interference
+patterns.
+</body>
+</html>
