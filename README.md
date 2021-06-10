@@ -16,4 +16,5 @@ toy, in terms of "teeth" of the ring and gear.
 ## Disclosure
 
 * Intended for touch-screen devices: phones and tablets
+* Apple Safari: install to home screen for fullscreen experience
 * &reg; https://www.playmonster.com/brand/spirograph/

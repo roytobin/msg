@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <title>Mobile Spirograph</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="Keywords"    content="spirograph hypotrochoid javascript">
+<meta name="Description" content="fast spirograph creation web app for touch-screen devices">
 <script>
 /*
   This is from
@@ -28,6 +35,22 @@ body {
     scrollable content if necessary."
     */
     overflow-y: hidden;
+    /* 
+    The following -webkit* apple attributes are from:
+    https://medium.com/appscope/designing-native-like-progressive-web-apps-for-ios-1b3cdda1d0e8
+    Jul 2018 (36 months ago)
+    */
+    -webkit-user-select: none;  /* apple: none->do not allow text selection */
+    /*
+    [The 'highlight-color] property obeys the alpha value, if specified.  If you don't
+    specify an alpha value, Safari on iOS applies a default alpha value
+    to the color.  To disable tap highlighting, set the alpha value to 0
+    (invisible).  If you set the alpha value to 1.0 (opaque), the element
+    is not visible when tapped.
+    -developer.apple.com/library/archive/documentation/... as of Jun 2021
+    */
+    /* -webkit-tap-highlight-color: transparent;  /* apple: kinda disable link highlight color */
+    -webkit-touch-callout:       none;  /* apple: none->disable callout effect on iOS */
 }
 * {
     box-sizing: border-box;
@@ -189,6 +212,13 @@ body {
     -webkit-user-select: none; /* Safari */
     -ms-user-select:     none; /* IE 10 and IE 11 */
     user-select:         none; /* Standard syntax */
+    /* "manipulation: Enable panning and pinch zoom gestures, but
+     * disable additional non-standard gestures such as double-tap
+     * to zoom."  -MDN 6/2021
+     * This "touch-action: manipulation" line is an attempt to
+     * disable double-tap to zoom on Apple.
+     */
+    touch-action: manipulation;  
 }
 .keyfont {
     font-size: 9vw;   /* experiment 10vw (arbitrary, not autoscale) is good for phones */
@@ -218,11 +248,6 @@ input {
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-}
-#in1 {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select:     none; /* IE 10 and IE 11 */
-    user-select:         none; /* Standard syntax */
 }
 #horiz {
     display: flex;
@@ -355,7 +380,7 @@ input {
         </p></div>
         <div class="subalign menufont" onclick="sp_choice(RTSEQ)"> <p>Ring Teeth (sequence)<br>
             <br>
-            <span id="rt3" style="font-size: 9vw">  105..95x3 </span>
+            <span id="rt3" style="font-size: 9vw">  105..95 x3 </span>
         </p></div>
     </div>
 </div>
@@ -372,7 +397,7 @@ input {
         </p></div>
         <div class="subalign menufont" onclick="sp_choice(GTSEQ)"> <p>Gear Teeth (sequence)<br>
             <br>
-            <span id="gt3" style="font-size: 9vw">  60..30x3 </span>
+            <span id="gt3" style="font-size: 9vw">  60..30 x3 </span>
         </p></div>
     </div>
 </div>
@@ -389,7 +414,7 @@ input {
         </p></div>
         <div class="subalign menufont" onclick="sp_choice(STSEQ)"> <p>Start Tooth (sequence)<br>
             <br>
-            <span id="st3" style="font-size: 9vw">  0..12x13  </span>
+            <span id="st3" style="font-size: 9vw">  0..12 x13  </span>
         </p></div>
     </div>
 </div>
@@ -406,7 +431,7 @@ input {
         </p></div>
         <div class="subalign menufont" onclick="sp_choice(POSEQ)"> <p>Penhole Offset (sequence)<br>
             <br>
-            <span id="po3" style="font-size: 9vw">  63..43x13 </span>
+            <span id="po3" style="font-size: 9vw">  63..23 x13 </span>
         </p></div>
     </div>
 </div>
@@ -423,7 +448,7 @@ input {
         </p></div>
         <div class="subalign menufont" onclick="sp_choice(PTSEQ)"> <p>Pen Thickness (sequence)<br>
             <br>
-            <span id="pt3" style="font-size: 9vw">  1..6x4 </span>
+            <span id="pt3" style="font-size: 9vw">  1..6 x4 </span>
         </p></div>
     </div>
 </div>
@@ -2142,6 +2167,17 @@ function sp_canvas(that) {
     //console.log("sp_canvas() ", c.style.height);  // style.height is empty string -- huh?
     sp_sched();
 }
+// https://stackoverflow.com/questions/67782949/
+// https://medium.com/building-blocks/code-snippet-4accfa29b75d
+// This nonsense is an attempt to disable apple ios doubletap-to-zoom annoying behavior
+var doubleTouchStartTimestamp = 0;
+document.addEventListener("touchstart", function(event){
+    var now = +(new Date());
+    if (doubleTouchStartTimestamp + 260 > now){
+        event.preventDefault();
+    };
+    doubleTouchStartTimestamp = now;
+});
 </script>
 </body>
 </html>
